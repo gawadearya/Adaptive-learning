@@ -67,7 +67,6 @@ The project aims to overcome the limitations of traditional "one-size-fits-all" 
 
 ## Project Structure
 
-```text
 Adaptive-Elearning-System/
 │
 ├── index.html
