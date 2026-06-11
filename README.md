@@ -68,21 +68,7 @@ The project aims to overcome the limitations of traditional "one-size-fits-all" 
 ## Project Structure
 
 ```text
-Adaptive-Elearning-System/
-│
-├── index.html
-├── login.html
-├── signup.html
-├── quiz.html
-├── dashboard.html
-│
-├── css/
-├── js/
-├── assets/
-│
-└── README.md
-```
-
+Adaptive-Elearning-System/ │ ├── index.html ├── home.html ├── login.html ├── signup.html ├── quiz.html ├── dashboard.html │ ├── quiz.js ├── dashboard.js ├── fuzzy.engine.js │ └── README.md
 ## Future Enhancements
 
 * Machine Learning-based personalization
