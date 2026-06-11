@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | AI Learning</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(-45deg, #0f0f1a, #1b1b2f, #1e3a5f, #252540);
+  background-size: 400% 400%;
+  animation: gradientBG 12s ease infinite;
+  height: 100vh;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* 🔥 MAIN CARD - HIGH CONTRAST */
+.card {
+  width: 100%;
+  max-width: 520px;
+  padding: 35px;
+  border-radius: 20px;
+  background: rgba(20, 20, 40, 0.9);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.7);
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(20px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+
+/* HEADINGS */
+h3 {
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.subtext {
+  color: rgba(255,255,255,0.7);
+}
+
+/* DROPDOWN */
+select {
+  background: rgba(255,255,255,0.1) !important;
+  color: white !important;
+  border-radius: 10px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  width: 100%;
+  margin-top: 10px;
+}
+
+option {
+  color: black;
+}
+
+/* 🔥 TOPICS BOX */
+.topic-box {
+  margin-top: 15px;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(0, 242, 255, 0.1);
+  border-left: 4px solid #00f2ff;
+  color: #00e6ff;
+  font-weight: 600;
+  display: none;
+}
+
+/* 🔥 INFO BOX */
+.info-box {
+  background: rgba(0,0,0,0.6);
+  padding: 18px;
+  border-radius: 12px;
+  margin-top: 15px;
+  border-left: 4px solid #00f2ff;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+  display: none;
+}
+
+.info-box b {
+  color: #ffffff;
+}
+
+.info-box {
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+}
+
+/* BUTTON */
+.btn-start {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  width: 100%;
+  font-weight: bold;
+  margin-top: 20px;
+  color: white;
+  transition: 0.3s;
+}
+
+.btn-start:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(118, 75, 162, 0.5);
+}
+
+/* LOGOUT */
+.btn-logout {
+  background: transparent;
+  border: none;
+  color: #ff6b6b;
+  margin-top: 10px;
+  font-weight: 500;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+  <h3 id="welcomeText">Welcome</h3>
+  <p class="subtext">AI Adaptive Quiz System</p>
+
+  <!-- Language -->
+  <select id="language">
+    <option value="">Select Programming Language</option>
+    <option>Python</option>
+    <option>Java</option>
+    <option>C</option>
+  </select>
+
+  <!-- Topics -->
+  <div id="topicsBox" class="topic-box"></div>
+
+  <!-- Info -->
+  <div id="infoBox" class="info-box"></div>
+
+  <!-- Buttons -->
+  <button class="btn btn-start" onclick="startQuiz()">Start Quiz</button>
+  <button class="btn btn-logout w-100" onclick="logout()">Logout</button>
+
+</div>
+
+<script>
+// ✅ USER CHECK
+const user = JSON.parse(localStorage.getItem("currentUser"));
+if (!user) window.location.href = "login.html";
+
+document.getElementById("welcomeText").innerText = "Welcome, " + user.name;
+
+// ✅ TOPICS DATA
+const topicsData = {
+  Python: ["Data Types", "Loops", "Functions", "OOP"],
+  Java: ["Basics", "Loops", "OOP"],
+  C: ["Variables", "Loops", "Pointers"]
+};
+
+document.getElementById("language").addEventListener("change", function () {
+  const lang = this.value;
+  if (!lang) return;
+
+  localStorage.setItem("language", lang);
+
+  // Show topics
+  const topicsBox = document.getElementById("topicsBox");
+  topicsBox.style.display = "block";
+  topicsBox.innerHTML = `
+    Topics Covered:<br>
+    ${topicsData[lang].join(", ")}
+  `;
+
+  // Show info
+  const infoBox = document.getElementById("infoBox");
+  infoBox.style.display = "block";
+  infoBox.innerHTML = `
+    <b>Test Details:</b><br>
+    Language: ${lang}<br>
+    Time: 20 Minutes<br>
+    Questions: 15<br><br>
+
+    <b>Instructions:</b><br>
+    • Each question has one correct answer<br>
+    • No negative marking<br>
+    • Timer is fixed (20 minutes)<br>
+    • Difficulty adapts based on your performance
+  `;
+});
+
+// START QUIZ
+function startQuiz() {
+  const lang = localStorage.getItem("language");
+  if (!lang) {
+    alert("Please select a language first!");
+    return;
+  }
+  window.location.href = "quiz.html";
+}
+
+// LOGOUT
+function logout() {
+  localStorage.removeItem("currentUser");
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>

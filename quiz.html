@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Python Quiz | AI Mentor</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --success: #22c55e;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+            --danger: #f43f5e;
+            --secondary: #475569;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .quiz-container {
+            background: var(--card);
+            padding: 2.5rem;
+            border-radius: 1.25rem;
+            width: 95%;
+            max-width: 650px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #334155;
+            padding-bottom: 1.25rem;
+        }
+
+        .info-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        #qno { 
+            font-size: 0.95rem; 
+            color: var(--text-dim); 
+            font-weight: 500;
+        }
+        
+        #levelTag {
+            background: var(--primary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #timer { 
+            font-family: 'Courier New', monospace;
+            font-weight: bold; 
+            color: var(--danger); 
+            font-size: 1.2rem;
+            background: rgba(244, 63, 94, 0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+        }
+
+        .question-text {
+            font-size: 1.4rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+            min-height: 90px;
+            font-weight: 500;
+        }
+
+        .options-grid {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .option {
+            background: #2d3748;
+            padding: 1.1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            font-size: 1rem;
+        }
+
+        .option:hover { 
+            background: #3e4a5e;
+            transform: translateY(-2px);
+        }
+        
+        .option.selected {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .footer-btns {
+            margin-top: 2.5rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.85rem 1.75rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            font-weight: 700;
+            border: none;
+            color: white;
+            transition: all 0.2s;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn:active { transform: scale(0.98); }
+
+        #skipBtn {
+            background: var(--secondary);
+            color: #e2e8f0;
+        }
+
+        #skipBtn:hover { background: #334155; }
+
+        #nextBtn {
+            background: var(--primary);
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        #nextBtn:hover { 
+            background: var(--primary-hover);
+            box-shadow: 0 6px 16px rgba(99, 102, 241, 0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <div class="info-group">
+                <span id="qno">Question 1 / 15</span>
+                <span id="levelTag">Medium</span>
+            </div>
+            <div id="timer">⏱ 20:00</div>
+        </div>
+
+        <div id="question" class="question-text">
+            Initializing AI adaptive modules...
+        </div>
+
+        <div id="options" class="options-grid">
+            </div>
+
+        <div class="footer-btns">
+            <button id="skipBtn" class="btn" onclick="skipQuestion()">Skip</button>
+            <button id="nextBtn" class="btn" onclick="handleNext()">Next Question</button>
+        </div>
+    </div>
+
+    <script src="fuzzy-engine.js"></script>
+    <script src="quiz.js"></script>
+</body>
+</html>

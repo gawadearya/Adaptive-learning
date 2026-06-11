@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login | Learning Path</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0; padding: 0; font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #1e1e2f, #2d1b4e, #1e3a5f, #252540);
+      background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+      height: 100vh; display: flex; justify-content: center; align-items: center; color: white; overflow: hidden;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .card {
+      width: 100%; max-width: 400px; padding: 35px; border-radius: 24px;
+      background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3); color: white;
+    }
+
+    .logo {
+      width: 45px; height: 45px; border-radius: 12px; margin: 0 auto 15px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+    }
+
+    .subtitle {
+      text-align: center; color: rgba(255, 255, 255, 0.6);
+      font-size: 14px; margin-bottom: 25px;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: white; border-radius: 12px; padding: 12px;
+    }
+
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #667eea;
+      color: white;
+      box-shadow: none;
+    }
+
+    .input-group-text {
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+      border-radius: 0 12px 12px 0;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none; padding: 12px;
+      border-radius: 12px; font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(118, 75, 162, 0.4);
+    }
+
+    .google-btn {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: white; width: 100%;
+      padding: 12px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+
+    .divider {
+      text-align: center; margin: 20px 0;
+      color: rgba(255, 255, 255, 0.4);
+      font-size: 12px;
+    }
+
+    .bottom-text {
+      text-align: center; margin-top: 20px;
+      font-size: 14px; color: rgba(255, 255, 255, 0.7);
+    }
+
+    .bottom-text a {
+      text-decoration: none;
+      color: #a29bfe;
+      font-weight: 600;
+    }
+
+    ::placeholder {
+      color: rgba(255, 255, 255, 0.4) !important;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="logo"></div>
+  <h4 class="text-center fw-bold">Welcome Back</h4>
+  <p class="subtitle">Please sign in to your dashboard</p>
+
+  <input type="email" id="email" class="form-control mb-3" placeholder="Email address">
+
+  <div class="input-group mb-3">
+    <input type="password" id="password" class="form-control" placeholder="Password">
+    <span class="input-group-text" onclick="togglePassword()">
+      <i class="fa fa-eye"></i>
+    </span>
+  </div>
+
+  <button class="btn btn-primary w-100 mb-3" onclick="login()">Sign in</button>
+
+  <div class="divider">OR CONTINUE WITH</div>
+
+  <button class="google-btn">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/google/google-original.svg" width="18">
+    Google
+  </button>
+
+  <div class="bottom-text">
+    Don’t have an account? <a href="signup.html">Create one</a>
+  </div>
+</div>
+
+<script>
+function login() {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  const user = users.find(u => u.email === email && u.password === password);
+
+  if (user) {
+    const userData = {
+      name: user.name || email.split("@")[0],
+      email: user.email
+    };
+
+    localStorage.setItem("currentUser", JSON.stringify(userData));
+
+    // ✅ Correct flow
+    window.location.href = "home.html";
+
+  } else {
+    alert("Invalid email or password!");
+  }
+}
+
+function togglePassword() {
+  const pass = document.getElementById("password");
+  pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

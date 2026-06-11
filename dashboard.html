@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Path | Professional Dashboard</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --mastery: #22c55e;
+            --developing: #f59e0b;
+            --struggling: #ef4444;
+        }
+
+        body {
+            margin: 0; padding: 20px; font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #0f0f1a, #1b1b2f, #1e3a5f, #252540);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh; color: #ffffff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            height: 100%;
+            padding: 25px;
+        }
+
+        .skill-status {
+            font-size: 1rem; font-weight: 700; padding: 8px 20px;
+            border-radius: 50px; text-transform: uppercase;
+            letter-spacing: 1px; border: 2px solid rgba(255,255,255,0.3);
+            display: inline-block; margin-top: 5px;
+        }
+
+        .mastery { background: var(--mastery); color: white; }
+        .developing { background: var(--developing); color: #000; }
+        .struggling { background: var(--struggling); color: white; }
+
+        .yt-frame-container {
+            border-radius: 15px; overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-action {
+            background: linear-gradient(135deg, #6366f1, #a855f7);
+            border: none; border-radius: 12px; padding: 12px;
+            font-weight: 600; color: white; transition: 0.3s;
+        }
+
+        .btn-action:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        
+        canvas { filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.2)); }
+    </style>
+</head>
+<body>
+
+    <div class="container py-3">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 class="fw-bold mb-0">My Learning Path</h1>
+                <p class="text-white-50">Adaptive Fuzzy Logic Mentor</p>
+            </div>
+            <button class="btn btn-outline-light border-0" onclick="logout()">
+                <i class="fas fa-power-off me-2"></i>Logout
+            </button>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <div class="glass-card">
+                    <div class="mb-4">
+                        <small class="text-white-50 fw-bold text-uppercase">Fuzzy Engine Result</small><br>
+                        <div id="skillStatus" class="skill-status">Analyzing...</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <h5 class="fw-bold"><i class="fas fa-bullseye text-info me-2"></i>Next Recommendation</h5>
+                        <p id="suggestionText" class="small text-white-50">Our engine is calculating your optimal path based on recent performance.</p>
+                    </div>
+
+                    <div class="yt-frame-container mb-4">
+                        <iframe id="lessonVideo" width="100%" height="220" src="" frameborder="0" allowfullscreen></iframe>
+                    </div>
+
+                    <button class="btn btn-action w-100" onclick="location.href='quiz.html'">
+                        <i class="fas fa-play me-2"></i> Launch Practice Quiz
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-7">
+                <div class="glass-card">
+                    <div class="d-flex justify-content-between align-items-start mb-4">
+                        <h5 class="fw-bold"><i class="fas fa-chart-bar text-info me-2"></i>Topic Proficiency</h5>
+                        <div class="text-end">
+                            <small class="text-white-50 d-block">PRIMARY FOCUS</small>
+                            <span id="focusSummary" class="badge bg-info text-dark">--</span>
+                        </div>
+                    </div>
+                    <div style="height: 320px;">
+                        <canvas id="topicChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="glass-card py-3 text-center">
+                    <small class="text-white-50 fw-bold">CURRENT MODULE</small>
+                    <p id="currentLesson" class="mb-0 fw-bold text-info h5">Data Types</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="glass-card py-3 text-center">
+                    <small class="text-white-50 fw-bold">TOTAL PERFORMANCE</small>
+                    <p id="lifetimePoints" class="mb-0 fw-bold text-warning h5">0 / 15 Points</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="dashboard.js"></script>
+</body>
+</html>
